@@ -1,0 +1,43 @@
+﻿@model GeoNameAddress.Models.InputFields
+
+@{
+    ViewBag.Title = "删除";
+}
+
+<h2>删除</h2>
+
+<h3>是否删除该点?</h3>
+<div>
+    <p>
+        <br />
+    </p>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Addresss)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Addresss)
+        </dd>
+      
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="删除" class="btn btn-default" /> |
+            @Html.ActionLink("返回首页", "Index")
+        </div>
+    }
+</div>

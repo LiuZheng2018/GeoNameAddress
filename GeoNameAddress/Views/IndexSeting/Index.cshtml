@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "索引设置";
+}
+
+<h2>索引设置</h2>
+
+<div style="height:40px;">
+    <div style=" float:right">
+        <button id="uploadfile" type="button" class="btn btn-default center-block btn-sm">上传文件</button>
+        <button id="createindex" type="button" class="btn btn-default center-block btn-sm">创建索引</button>
+        <button id="deleteindex" type="button" class="btn btn-default center-block btn-sm">删除索引</button>
+    </div>
+</div>
+
+<p>
+    <br />
+</p>
+<div>
+    <p>
+        当前状态
+    </p>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $("#createindex").click(function () {       
+        var path = "@Href("~/")";
+        window.location.href = path + "IndexSeting/ReadDbf";
+    });
+</script>
+

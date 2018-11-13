@@ -1,0 +1,92 @@
+﻿@model IEnumerable<GeoNameAddress.Models.SearchResult>
+<p>
+    <br />
+</p>
+<div style="height:40px;">
+    <div style="float:left">
+        <input type="text" class="form-control input-sm" id="search_message" placeholder="请输入关键字" value="@ViewBag.SearchContent">
+    </div>
+    <div style=" float:right">
+        <button id="download" type="button" class="btn btn-default center-block btn-sm">导出shp文件</button>
+    </div>
+</div>
+
+@if (Model == null)
+{
+    <p>
+        <br />
+    </p>
+    <p>
+        ElasticSearch服务未启动或为创建索引
+    </p>
+}
+else
+{
+    <p>
+    @Html.ActionLink("  添加POINT", "Create")
+    <br />
+    </p>
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Addresss)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.X)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Y)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Addresss)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.X)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Y)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+                <td>
+                    @Html.ActionLink("编辑", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("详情", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $("#search_message").keyup(function (event) {
+            if (event.keyCode == 13) {
+                var txt = $("#search_message").val();
+                var path = "@Href("~/")";
+                window.location.href =path+"Home/Index?searchString=" + txt;
+            }
+    });
+    $("#download").click(function () {
+        var RootUrl = "@Href("~/")";
+        var url = RootUrl + "Web/DownloadStart";
+        window.open(url)
+        //window.location.href ="/Download/DownloadStart"
+     });
+</script>

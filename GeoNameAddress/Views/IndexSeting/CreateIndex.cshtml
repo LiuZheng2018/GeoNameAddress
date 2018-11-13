@@ -1,0 +1,44 @@
+﻿@model GeoNameAddress.Models.FieldMapping
+@{
+    ViewBag.Title = "创建索引";
+}
+
+<h2>创建索引</h2>
+<p>
+    <br />
+</p>
+
+@using (Html.BeginForm())
+{
+   
+<div class="form-horizontal">
+    <h5>建立源文件与ElasticSearch中字段的映射关系：</h5>
+    <hr />
+
+    <div class="form-group">
+        <label for="ID" class="col-sm-2 control-label">ID</label>
+        @Html.DropDownListFor(model => model.ID, ViewBag.AllFields as SelectList, "", new { @class = "form-control col - sm - 8" })
+    </div>
+    <div class="form-group">
+        <label for="Name" class="col-sm-2 control-label">地名</label>
+        @Html.DropDownListFor(model => model.Name, ViewBag.AllFields as SelectList, "", new { @class = "form-control col - sm - 8" })
+    </div>
+    <div class="form-group">
+        <label for="Address" class="col-sm-2 control-label">地址</label>
+        @Html.DropDownListFor(model => model.Address, ViewBag.AllFields as SelectList, "", new { @class = "form-control col - sm - 8" })
+    </div>
+    <div class="form-group">
+        <label for="Xcoordinate" class="col-sm-2 control-label">X坐标</label>
+        @Html.DropDownListFor(model => model.Xcoordinate, ViewBag.AllFields as SelectList, "", new { @class = "form-control col - sm - 8" })
+    </div>
+    <div class="form-group">
+        <label for="Ycoordinate" class="col-sm-2 control-label">Y坐标</label>
+        @Html.DropDownListFor(model => model.Ycoordinate,ViewBag.AllFields as SelectList,"", new { @class = "form-control col - sm - 8"})
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="创建索引" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
