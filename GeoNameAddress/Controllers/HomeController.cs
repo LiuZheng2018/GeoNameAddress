@@ -12,7 +12,7 @@ namespace GeoNameAddress.Controllers
 {
     public class HomeController : Controller
     {
-       
+        ESServices eSServices = new ESServices();
         // GET: Home
         public ActionResult Index(string searchString)
         {
@@ -20,16 +20,16 @@ namespace GeoNameAddress.Controllers
 
             if (searchString == null)
             {
-                ESServices sServices = new ESServices();
-                ElasticClient client = sServices.Connect_ES();
-                List<SearchResult> searchReault = sServices.GetAllResult(client, searchString);
+               
+                ElasticClient client = eSServices.Connect_ES();
+                List<SearchResult> searchReault = eSServices.GetAllResult(client, searchString);
                 return View(searchReault);
             }
             else
             {
-                ESServices sServices = new ESServices();
-                ElasticClient client = sServices.Connect_ES();
-                List<SearchResult> searchReault = sServices.GetSearchResult(client, searchString);
+
+                ElasticClient client = eSServices.Connect_ES();
+                List<SearchResult> searchReault = eSServices.GetSearchResult(client, searchString);
                 //oracleService.CloseConn(conn);
                 return View(searchReault);
             }
@@ -45,7 +45,7 @@ namespace GeoNameAddress.Controllers
         [HttpPost]
         public ActionResult Create(InputFields inputFields)
         {
-            ESServices eSServices = new ESServices();
+            
             ElasticClient client = eSServices.Connect_ES();
             eSServices.PutSingleDoc(inputFields,client);
             return RedirectToAction("Index");
@@ -54,7 +54,7 @@ namespace GeoNameAddress.Controllers
         public ActionResult Edit(string id)
         {
             InputFields ThisPoint = new InputFields();
-            ESServices eSServices = new ESServices();
+            
             ElasticClient client = eSServices.Connect_ES();
             ThisPoint= eSServices.GetSpecificPoint(client,id);
             return View(ThisPoint);
@@ -63,7 +63,7 @@ namespace GeoNameAddress.Controllers
         public ActionResult Edit(InputFields thisPoint)
         {
             InputFields ThisPoint = thisPoint;
-            ESServices eSServices = new ESServices();
+            
             ElasticClient client = eSServices.Connect_ES();
             eSServices.PutSingleDoc(thisPoint, client);
             return RedirectToAction("Index");
@@ -72,7 +72,7 @@ namespace GeoNameAddress.Controllers
         public ActionResult Details(string id)
         {
             InputFields ThisPoint = new InputFields();
-            ESServices eSServices = new ESServices();
+           
             ElasticClient client = eSServices.Connect_ES();
             ThisPoint = eSServices.GetSpecificPoint(client, id);
             return View(ThisPoint);
@@ -81,7 +81,7 @@ namespace GeoNameAddress.Controllers
         public ActionResult Delete(string id)
         {
             InputFields ThisPoint = new InputFields();
-            ESServices eSServices = new ESServices();
+            
             ElasticClient client = eSServices.Connect_ES();
             ThisPoint = eSServices.GetSpecificPoint(client, id);
             return View(ThisPoint);
@@ -89,10 +89,28 @@ namespace GeoNameAddress.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(string id)
         {
-            ESServices eSServices = new ESServices();
+            
             ElasticClient client = eSServices.Connect_ES();
             eSServices.DeleteSpecificPoint(client,id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Analyze(string analyzeString)
+        {
+            ViewBag.AnalyzeContent = analyzeString;
+            if (analyzeString == null)
+            {
+                return View();
+            }
+            else
+            {
+                
+                ElasticClient client = eSServices.Connect_ES();
+                List<AnalyzeResult> analyzeReault =eSServices.GetAnalyzeResults(client, analyzeString);
+                //oracleService.CloseConn(conn);
+                return View(analyzeReault);
+            }
+
         }
     }
 }

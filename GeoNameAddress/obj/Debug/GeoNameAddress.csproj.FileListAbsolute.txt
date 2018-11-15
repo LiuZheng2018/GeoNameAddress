@@ -66,5 +66,4 @@ C:\01liuzheng\02项目\GeoNameAddress\GeoNameAddress\bin\System.Net.Http.Formatt
 C:\01liuzheng\02项目\GeoNameAddress\GeoNameAddress\bin\System.Web.Http.xml
 C:\01liuzheng\02项目\GeoNameAddress\GeoNameAddress\bin\System.Web.Http.WebHost.xml
 C:\01liuzheng\02项目\GeoNameAddress\GeoNameAddress\bin\Zjgis.ZipHelper.dll
-C:\01liuzheng\02项目\GeoNameAddress\GeoNameAddress\obj\Debug\GeoNameAddress.csprojAssemblyReference.cache
 C:\01liuzheng\02项目\GeoNameAddress\GeoNameAddress\bin\ICSharpCode.SharpZipLib.dll

@@ -165,5 +165,21 @@ namespace GeoNameAddress.Services
             }
             return points;
         }
+        public List<AnalyzeResult> GetAnalyzeResults(ElasticClient client, string analyzeStr)
+        {
+            var analyzeResponse = client.Analyze(a => a
+               .Analyzer("ik_smart")
+               .Text(analyzeStr)
+             );
+            List<AnalyzeResult> AnalyzeResult = new List<AnalyzeResult>();
+            foreach (var item in analyzeResponse.Tokens)
+            {
+                AnalyzeResult.Add(new AnalyzeResult(item.Token, item.StartOffset.ToString(), item.EndOffset.ToString()));
+
+            }
+            AnalyzeResult.Count();
+            return AnalyzeResult;
+        }
+
     }
 }

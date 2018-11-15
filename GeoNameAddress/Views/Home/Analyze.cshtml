@@ -1,0 +1,66 @@
+﻿@model IEnumerable<GeoNameAddress.Models.AnalyzeResult>
+
+@{
+    ViewBag.Title = "分词测试";
+}
+
+<h2>分词测试</h2>
+
+<div style="height:40px;">
+    <div style="float:left">
+        <input type="text" class="form-control input-sm" id="analyze_message" placeholder="请输入测试内容" value="@ViewBag.AnalyzeContent">
+    </div>
+</div>
+@if (Model == null)
+{
+}
+else
+{
+    <p>
+        <br />
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Token)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.End)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Token)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.End)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $("#analyze_message").keyup(function (event) {
+            if (event.keyCode == 13) {
+                var txt = $("#analyze_message").val();
+                var path = "@Href("~/")";
+                window.location.href = path +"Home/Analyze?analyzeString=" + txt;
+            }
+        });
+</script>
