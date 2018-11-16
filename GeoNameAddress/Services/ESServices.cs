@@ -11,10 +11,7 @@ namespace GeoNameAddress.Services
         public ElasticClient Connect_ES()
         {
             var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
-               .DefaultMappingFor<InputFields>(i => i
-               .IndexName("myindex")
-               .TypeName("mytype")
-                );           
+               .DefaultIndex("myindex");           
             var client = new ElasticClient(settings);
             return client;
         }
@@ -43,7 +40,7 @@ namespace GeoNameAddress.Services
 
         public void PutSingleDoc(InputFields doc, ElasticClient client)
         {
-            client.IndexDocument(doc);
+            client.Index(doc);
         }
 
 
@@ -174,7 +171,7 @@ namespace GeoNameAddress.Services
             List<AnalyzeResult> AnalyzeResult = new List<AnalyzeResult>();
             foreach (var item in analyzeResponse.Tokens)
             {
-                AnalyzeResult.Add(new AnalyzeResult(item.Token, item.StartOffset.ToString(), item.EndOffset.ToString()));
+                AnalyzeResult.Add(new AnalyzeResult(item.Token, item.StartOffset.ToString(), item.EndPostion.ToString()));
 
             }
             AnalyzeResult.Count();
